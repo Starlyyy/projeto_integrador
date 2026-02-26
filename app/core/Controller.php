@@ -1,5 +1,9 @@
 <?php
 
+//funcionalidades que outros controllers usarão
+
+namespace app\core;
+
 class Controller {
     public function view(string $view, ?array $data = null){
 
@@ -11,5 +15,14 @@ class Controller {
             require_once $path;
         else 
             print 'A view solicitada não foi encontrada';
+    }
+
+    public function redirect(string $url){
+        header('location:' . $url);
+        exit();
+    }
+
+    public function authRequired(){
+        //TODO: implementar no futuro
     }
 }

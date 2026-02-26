@@ -1,6 +1,10 @@
 <?php 
 
-require_once __DIR__ . '/../core/Controller.php';
+namespace app\controllers;
+
+// require_once __DIR__ . '/../core/Controller.php';
+use app\core\Controller;
+
 
 class PlayerController extends Controller{
 
@@ -18,14 +22,18 @@ class PlayerController extends Controller{
 
     public function jogador(){
 
-        $data['date'] = new DateTimeImmutable();
+        $data['date'] = new \DateTimeImmutable();
         $data['jogador'] = ['Neymar', '36', 'Meia Atacante']; 
 
         $this->view('players/players_show', $data);
+
         
     }
 
-    
+    public function teste(){
+        $this->redirect('http://google.com');
+
+    }
 
 
 } 
