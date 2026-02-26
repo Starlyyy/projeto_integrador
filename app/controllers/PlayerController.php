@@ -1,16 +1,18 @@
 <?php 
 
-class PlayerController {
+require_once __DIR__ . '/../core/Controller.php';
+
+class PlayerController extends Controller{
 
     public function __construct()
     {
     }
 
     public function index() {
-        $list = ['Neymar', 'Bebeto', 'Gabigol', 'Cebola'];
+        $data['list'] = ['Neymar', 'Bebeto', 'Gabigol', 'Cebola'];
 
-        require_once __DIR__ . '/../views/players/players_list.php';
-        // $this->view('players/players_list', $list);
+        // require_once __DIR__ . '/../views/players/players_list.php';
+        $this->view('players/players_list', $data);
 
     }
 
@@ -23,17 +25,7 @@ class PlayerController {
         
     }
 
-    public function view(string $view, ?array $data = null){
-
-        extract($data);
-
-        $path = __DIR__ . "/../views/$view.php";
-
-        if(file_exists($path))
-            require_once $path;
-        else 
-            print 'A view solicitada não foi encontrada';
-    }
+    
 
 
 } 
