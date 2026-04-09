@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\helper\Validador;
 use app\core\Controller;
 use app\models\Usuario;
 use app\services\UsuarioService;
@@ -48,12 +49,38 @@ class UsuarioController extends Controller
     }
 
     public function salvar() {
+
+        $validador = new Validador();
+        
+        //sanitizar os dados
+    
+        $nomeUsuario = error_log(filter_input(INPUT_POST, $_POST['nomeUsuario'], FILTER_SANITIZE_SPECIAL_CHARS));
+        $email = $_POST['email'];
+        $senha = $_POST['senha'];
+        $perfil = $_POST['perfil'];
+
+        //validar os dados
+
+        $validador->obrigatorio('nomeUsuario', $nomeUsuario);
+        $validador->obrigatorio('email', $email);
+
+        if ($validador->temErros()) {
+            $data['usuario'] = $_POST;
+            $data['erros'] = $validador->getErros();
+
+            $this->view('usuarios/usuario_create', $data);
+
+            return;
+        }
+
+        //salvar
+
         $usuario = new Usuario(
             0, 
-            $_POST['nomeUsuario'], 
-            $_POST['email'], 
-            $_POST['senha'], 
-            $_POST['perfil']
+            $nomeUsuario, 
+            $email, 
+            $senha, 
+            $perfil
         );
 
         if ($this->service->saveUsuario($usuario)) {
