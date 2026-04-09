@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\helper\Validador;
+use app\helpers\Validador;
 use app\core\Controller;
 use app\models\Usuario;
 use app\services\UsuarioService;
@@ -54,7 +54,7 @@ class UsuarioController extends Controller
         
         //sanitizar os dados
     
-        $nomeUsuario = error_log(filter_input(INPUT_POST, $_POST['nomeUsuario'], FILTER_SANITIZE_SPECIAL_CHARS));
+        $nomeUsuario = filter_input(INPUT_POST, 'nomeUsuario', FILTER_SANITIZE_SPECIAL_CHARS);
         $email = $_POST['email'];
         $senha = $_POST['senha'];
         $perfil = $_POST['perfil'];

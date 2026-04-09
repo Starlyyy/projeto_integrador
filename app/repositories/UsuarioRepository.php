@@ -9,6 +9,7 @@ use PDO;
 class UsuarioRepository
 {
     private PDO $connection;
+    private Usuario $usuario;
 
     public function __construct()
     {
@@ -60,11 +61,13 @@ class UsuarioRepository
     }
 
     public function getUsuarioByEmail(string $email) {
-        $sql = "SELECT id FROM usuarios WHERE email = :email";
+        $sql = "SELECT * FROM usuarios WHERE email = :email";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(':email', $email);
         $stmt->execute();
         return $stmt->fetch(); // Retorna o usuário se encontrar, ou falso se não existir
+
+        return Usuario::arrayParaObjeto($stmt->fetch());
     }
 
 }

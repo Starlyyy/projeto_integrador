@@ -29,4 +29,8 @@ $router->get('/usuarios/editar', 'UsuarioController@editar');
 $router->post('/usuarios/atualizar', 'UsuarioController@atualizar');
 $router->get('/usuarios/excluir', 'UsuarioController@excluir');
 
+//autenticacao
+$router->get('/login', 'AutenticacaoController@login');
+$router->post('/logar', 'AutenticacaoController@logar');
+
 $router->run();
