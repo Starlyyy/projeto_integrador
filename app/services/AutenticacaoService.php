@@ -16,8 +16,16 @@ class AutenticacaoService{
     public function logar(string $email, string $senha): bool {
         $usuario = $this->usuarioRepository->getUsuarioByEmail($email);
 
-        print_r($usuario);
-        die;
+        if ($usuario && password_verify($senha, $usuario->getSenha())) {
+            $_SESSION['usuario_logado'] = $usuario;
+            return true;
+        }
+
+        return false;
+    }
+
+    public function logout(){
+        session_destroy();
     }
 
 }

@@ -23,8 +23,17 @@ class AutenticacaoController extends Controller {
         $email = $_POST['email'];
         $senha = $_POST['senha'];
 
-        $this->autenticacaoService->logar($email, $senha);
+        $resultado = $this->autenticacaoService->logar($email, $senha);
 
+        if ($resultado) {
+            $this->redirect(URL_BASE . '/jogadores');
+        } else {
+            
+            $dados['erros'] = 'Voce nao tem conta aqui rapaz';
+
+            $this->view('autenticacao/login', $dados);
+            
+        }
     }
     
 }

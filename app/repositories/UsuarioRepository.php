@@ -65,9 +65,13 @@ class UsuarioRepository
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(':email', $email);
         $stmt->execute();
-        return $stmt->fetch(); // Retorna o usuário se encontrar, ou falso se não existir
+        $usuario = $stmt->fetch(); 
 
-        return Usuario::arrayParaObjeto($stmt->fetch());
+        if ($usuario == null) {
+            return false;
+        }
+
+        return Usuario::arrayParaObjeto($usuario);
     }
 
 }

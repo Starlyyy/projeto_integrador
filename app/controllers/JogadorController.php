@@ -41,6 +41,11 @@ class JogadorController extends Controller
 
     public function criar()
     {
+        if (!isset($_SESSION) || $_SESSION['usuario_logado']->getPerfil() != 'admin') {
+            $this->redirect(URL_BASE, '/login');
+            return false;
+        }
+
         $this->view('jogadores/jogadores_create', []);
     }
 
@@ -68,7 +73,7 @@ class JogadorController extends Controller
         $jogador->setPosicao($posicao);
         $jogador->setTime($time);
         $jogador->setImagem($imagem);
-
+        
         //print_r($jogador);
         //exit;
 

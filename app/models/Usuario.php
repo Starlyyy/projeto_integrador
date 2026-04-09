@@ -96,6 +96,7 @@ class Usuario
     }
 
     public static function arrayParaObjeto(array $usuario){
+        
         return new self (
             $usuario['id'],
             $usuario['nome_usuario'],
